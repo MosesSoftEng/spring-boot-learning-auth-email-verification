@@ -1,4 +1,4 @@
-package com.example.demo.RegisterController;
+package com.example.demo.register;
 
 
 import lombok.AllArgsConstructor;
