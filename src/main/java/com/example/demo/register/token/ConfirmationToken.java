@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @NoArgsConstructor
+@Entity
 public class ConfirmationToken {
     @Id //* JPA Annotation for marking a primary key in this case property id.
 
@@ -46,7 +47,7 @@ public class ConfirmationToken {
     @ManyToOne
     @JoinColumn (
             nullable = false,
-            name = "app+user_id"
+            name = "app_user_id"
     )
     private AppUser appUser;
 
@@ -56,12 +57,10 @@ public class ConfirmationToken {
     public ConfirmationToken(String token,
                              LocalDateTime createdAt,
                              LocalDateTime expiresAt,
-                             LocalDateTime confirmedAt,
                              AppUser appUser) {
         this.token = token;
         this.createdAt = createdAt;
         this.expiresAt = expiresAt;
-        this.confirmedAt = confirmedAt;
         this.appUser = appUser;
     }
 }
