@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 //* Annotations
 @RestController //  For making restful web services.
-@RequestMapping(path = "api/v1.0/registration") // Maps web requests onto specific handler classes and/or handler methods
+@RequestMapping(path = "api/v1.0/register") // Maps web requests onto specific handler classes and/or handler methods
 @AllArgsConstructor // Auto generate an all argument constructor.
 
 public class RegisterController {
