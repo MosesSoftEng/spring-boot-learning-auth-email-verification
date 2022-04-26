@@ -48,7 +48,7 @@ public class AppUser
     )
 
     private Long id;
-    private String name, username, email, password;
+    private String firstName, lastName, email, password;
 
     //* JPA annotation to specify enum type.
     @Enumerated(EnumType.STRING)
@@ -62,20 +62,16 @@ public class AppUser
 
     public AppUser(
 //            Long id, // Ignore if auto generated.
-            String name,
-            String username,
+            String firstName,
+            String lastName,
             String email,
             String password,
-            UserRole userRole,
-            Boolean locked,
-            Boolean enabled) {
-        this.name = name;
-        this.username = username;
+            UserRole userRole) {
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.email = email;
         this.password = password;
         this.userRole = userRole;
-        this.locked = locked;
-        this.enabled = enabled;
     }
 
     /*
@@ -99,7 +95,15 @@ public class AppUser
 
     @Override
     public String getUsername() {
-        return username;
+        return email;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
     }
 
     @Override
