@@ -13,7 +13,7 @@ import java.util.Collection;
 import java.util.Collections;
 
 /*
- * User modal.
+ * User model.
  */
 
 // * Lombok annotations
@@ -46,8 +46,8 @@ public class AppUser
             strategy = GenerationType.SEQUENCE,
             generator = "user_sequence"
     )
-
     private Long id;
+
     private String firstName, lastName, email, password;
 
     //* JPA annotation to specify enum type.
