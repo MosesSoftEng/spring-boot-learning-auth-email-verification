@@ -1,11 +1,16 @@
 package com.example.demo.appuser;
 
+import com.example.demo.register.token.ConfirmationToken;
+import com.example.demo.register.token.ConfirmationTokenService;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
+import java.util.UUID;
 
 /*
  * Service to manage login/ register.
@@ -19,6 +24,7 @@ public class UserService implements
 {
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final ConfirmationTokenService confirmationTokenService;
 
     /*
      * Constructor or use lombok
@@ -56,8 +62,19 @@ public class UserService implements
          */
         userRepository.save(appUser);
 
-        // TODO: 26-Apr-22 Send confirmation token
+        /*
+         * Create and save token
+         */
+        String token = UUID.randomUUID().toString();
+        ConfirmationToken confirmationToken = new ConfirmationToken(
+                token,
+                LocalDateTime.now(),
+                LocalDateTime.now().plusMinutes(15),
+                appUser
+        );
+        confirmationTokenService.saveConfirmationToken(confirmationToken);
 
-        return "It works";
+        // TODO: 26-Apr-22 Send email
+        return token;
     }
 }
