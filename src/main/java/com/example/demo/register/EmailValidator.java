@@ -1,9 +1,9 @@
 package com.example.demo.register;
-
-import com.sun.xml.bind.v2.TODO;
+import org.springframework.stereotype.Service;
 
 import java.util.function.Predicate;
 
+@Service
 public class EmailValidator
         implements Predicate<String>
 {
