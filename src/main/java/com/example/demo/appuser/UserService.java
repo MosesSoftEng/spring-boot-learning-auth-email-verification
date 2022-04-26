@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 /*
@@ -17,6 +18,7 @@ public class UserService implements
         UserDetailsService // Add Spring security service
 {
     private final UserRepository userRepository;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     /*
      * Constructor or use lombok
@@ -29,5 +31,33 @@ public class UserService implements
                 .orElseThrow(() -> new UsernameNotFoundException(
                         String.format("No user with email %s.", email)
                 ));
+    }
+
+    /*
+     * Register user
+     */
+    public String registerUser(AppUser appUser) {
+        /*
+         * Check if user exist.
+         */
+        boolean userExist = userRepository.findByEmail(appUser.getEmail()).isPresent();
+        if (userExist) {
+            throw new IllegalStateException("email exist");
+        }
+
+        /*
+         * Encrypt password.
+         */
+        String encodedPassword = bCryptPasswordEncoder.encode(appUser.getPassword());
+        appUser.setPassword(encodedPassword);
+
+        /*
+         * Save user to DB
+         */
+        userRepository.save(appUser);
+
+        // TODO: 26-Apr-22 Send confirmation token
+
+        return "It works";
     }
 }
