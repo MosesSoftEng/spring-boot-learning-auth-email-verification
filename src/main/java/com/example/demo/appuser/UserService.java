@@ -69,12 +69,16 @@ public class UserService implements
         ConfirmationToken confirmationToken = new ConfirmationToken(
                 token,
                 LocalDateTime.now(),
-                LocalDateTime.now().plusMinutes(15),
+                LocalDateTime.now().plusMinutes(15), // TODO: 26-Apr-22 Get value from properties or config
                 appUser
         );
         confirmationTokenService.saveConfirmationToken(confirmationToken);
 
-        // TODO: 26-Apr-22 Send email
+        // TODO: 26-Apr-22 SEND TO EMAIL.
         return token;
+    }
+
+    public int enableAppUser(String email) {
+        return userRepository.enableAppUser(email);
     }
 }
