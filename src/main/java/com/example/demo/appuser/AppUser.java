@@ -53,7 +53,8 @@ public class AppUser
     //* JPA annotation to specify enum type.
     @Enumerated(EnumType.STRING)
     private UserRole userRole; // Enum
-    private Boolean locked, enabled;
+    private Boolean locked = false;
+    private Boolean enabled = false; // Default values.
 
     /*
      * Constructors
