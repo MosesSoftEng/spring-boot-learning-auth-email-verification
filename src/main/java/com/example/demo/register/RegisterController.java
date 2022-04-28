@@ -4,10 +4,7 @@ package com.example.demo.register;
  */
 
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 //* Annotations
 @RestController //  For making restful web services.
@@ -15,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 @AllArgsConstructor // Auto generate an all argument constructor.
 
 public class RegisterController {
-    RegisterService registerService;
+    private final RegisterService registerService;
 
     /*
      * Constructor or use lombock.
@@ -30,5 +27,10 @@ public class RegisterController {
                     RegisterRequest registerRequest // The structure of the request.
     ){
         return registerService.register(registerRequest);
+    }
+
+    @GetMapping(path = "confirm")
+    public String confirm(@RequestParam("token") String token){
+        return registerService.confirmToken(token);
     }
 }
